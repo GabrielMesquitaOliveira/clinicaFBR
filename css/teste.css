@@ -13,7 +13,7 @@ body, html {
 
 /* Estilo para o corpo com imagem de fundo */
 body {
-    width: 90%;
+    width: 100%;
     height: 110vh; /* altura do viewport */
     background-image: url('../img/clinica\ escola.png');
     background-repeat: no-repeat;
@@ -35,8 +35,7 @@ h1 {
 
 /* Estilo para o formulário */
 form {
-    width: 100%;
-    max-width: 1000px;
+    width: 90%;
     padding: 30px;
     background-color: rgba(255, 255, 255, 0.6);
     border-radius: 0px;
@@ -45,8 +44,6 @@ form {
     grid-template-columns: repeat(4, 3fr);
     column-gap: 50px; /* Espaço entre as colunas */
     row-gap: 5px;
-    margin-bottom: -20%;
-    margin-left: auto; /* Empurra o formulário para a direita */
 }
 
 /* Estilo para os grupos de formulário */

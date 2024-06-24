@@ -1,22 +1,21 @@
 <?php
-require_once '../controler/conexao.php';
-
-
-function ($data) {
+function sanitize_input($data) {
     return htmlspecialchars(stripslashes(trim($data)));
-    
+}
+// Conexão com o banco de dados
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "Clinica";
 
-// Inicialização de variáveis
-$nome = $endereco = $cpf = $idade = $categoria = $demanda = $uso_medicamentos = "";
-$medicamentos = $tempo_medicacao = $quantidade_medicacao = $risco = $historico_familiar = "";
-$relacoes_interpessoais = $doencas_genograma = $acompanhamento_rotina = $descricao_sessoes = "";
-$numero_sessao = $tipo_declaracao = $encaminhamento = "";
-$autorizacao = 0;
-$message = "";
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Sanitização dos dados de entrada
-    $nome = sanitize_input($_POST['nome']);
+// Verifica a conexão
+if ($conn->connect_error) {
+    die("Conexão falhou: " . $conn->connect_error);
+}
+
+$nome = sanitize_input($_POST['nome']);
     $endereco = sanitize_input($_POST['endereco']);
     $cpf = sanitize_input($_POST['cpf']);
     $idade = sanitize_input($_POST['idade']);
@@ -36,40 +35,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tipo_declaracao = sanitize_input($_POST['tipo_declaracao']);
     $encaminhamento = sanitize_input($_POST['encaminhamento']);
 
-    // Regra de autorização
-    if ($categoria == "Criança" && $idade <= 14) {
-        $autorizacao = 1; // Crianças até 14 anos precisam de autorização
-    } elseif ($categoria == "Adolescente" && $idade >= 15 && $idade <= 18 && $risco == 1) {
-        $autorizacao = 1; // Adolescentes de 15 a 18 anos com risco precisam de autorização
-    }
+    // Insere os dados no banco de dados
+    $sql = "INSERT INTO pacientes (nome, endereco, cpf, idade, categoria, demanda, uso_medicamentos, medicamentos, tempo_medicacao, quantidade_medicacao, risco, autorizacao, historico_familiar, relacoes_interpessoais, doencas_genograma, acompanhamento_rotina, descricao_sessoes, numero_sessao, tipo_declaracao, encaminhamento)
+    VALUES ('$nome', '$endereco', '$cpf', '$idade', '$categoria', '$demanda', '$uso_medicamentos', '$medicamentos', '$tempo_medicacao', '$quantidade_medicacao', '$risco', '$autorizacao', '$historico_familiar', '$relacoes_interpessoais', '$doencas_genograma', '$acompanhamento_rotina', '$descricao_sessoes', '$numero_sessao', '$tipo_declaracao', '$encaminhamento')";
 
-    // Mensagem de confirmação (simulando a inserção de dados)
-    $message = "Paciente cadastrado com sucesso!<br>";
-    $message .= "Nome: $nome<br>";
-    $message .= "Endereço: $endereco<br>";
-    $message .= "CPF: $cpf<br>";
-    $message .= "Idade: $idade<br>";
-    $message .= "Categoria: $categoria<br>";
-    $message .= "Demanda: $demanda<br>";
-    $message .= "Uso de Medicamentos: " . ($uso_medicamentos ? 'Sim' : 'Não') . "<br>";
-    if ($uso_medicamentos) {
-        $message .= "Medicamentos: $medicamentos<br>";
-        $message .= "Tempo de uso: $tempo_medicacao<br>";
-        $message .= "Quantidade: $quantidade_medicacao<br>";
-    }
-    $message .= "Tem risco: " . ($risco ? 'Sim' : 'Não') . "<br>";
-    $message .= "Autorização: " . ($autorizacao ? 'Sim' : 'Não') . "<br>";
-    $message .= "Histórico Familiar: $historico_familiar<br>";
-    $message .= "Relações Interpessoais: $relacoes_interpessoais<br>";
-    $message .= "Doenças Genograma: $doencas_genograma<br>";
-    $message .= "Acompanhamento de Rotina: $acompanhamento_rotina<br>";
-    $message .= "Descrição das Sessões: $descricao_sessoes<br>";
-    $message .= "Número da Sessão: $numero_sessao<br>";
-    $message .= "Declaração: $tipo_declaracao<br>";
-    $message .= "Encaminhamento: $encaminhamento<br>";
-    
+// Mensagem de confirmação (simulando a inserção de dados)
+$message = "Paciente cadastrado com sucesso!<br>";
+$message .= "Nome: $nome<br>";
+$message .= "Endereço: $endereco<br>";
+$message .= "CPF: $cpf<br>";
+$message .= "Idade: $idade<br>";
+$message .= "Categoria: $categoria<br>";
+$message .= "Demanda: $demanda<br>";
+$message .= "Uso de Medicamentos: " . ($uso_medicamentos ? 'Sim' : 'Não') . "<br>";
+if ($uso_medicamentos) {
+    $message .= "Medicamentos: $medicamentos<br>";
+    $message .= "Tempo de uso: $tempo_medicacao<br>";
+    $message .= "Quantidade: $quantidade_medicacao<br>";
 }
+$message .= "Tem risco: " . ($risco ? 'Sim' : 'Não') . "<br>";
+$message .= "Autorização: " . ($autorizacao ? 'Sim' : 'Não') . "<br>";
+$message .= "Histórico Familiar: $historico_familiar<br>";
+$message .= "Relações Interpessoais: $relacoes_interpessoais<br>";
+$message .= "Doenças Genograma: $doencas_genograma<br>";
+$message .= "Acompanhamento de Rotina: $acompanhamento_rotina<br>";
+$message .= "Descrição das Sessões: $descricao_sessoes<br>";
+$message .= "Número da Sessão: $numero_sessao<br>";
+$message .= "Declaração: $tipo_declaracao<br>";
+$message .= "Encaminhamento: $encaminhamento<br>";
 
-}
-
-?>
+echo $message;
