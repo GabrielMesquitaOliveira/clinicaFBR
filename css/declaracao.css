@@ -1,0 +1,49 @@
+/* styles.css */
+
+/* Define a fonte padrão e a margem/padding */
+body, html {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+}
+
+/* Estilo para o contêiner do relatório */
+.report {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Título principal */
+.report h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Parágrafos dentro do relatório */
+.report p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+/* Mensagens de erro */
+.report p.error {
+    color: #e74c3c;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 600px) {
+    .report {
+        margin: 20px;
+        padding: 15px;
+    }
+}

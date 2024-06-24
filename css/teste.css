@@ -1,0 +1,114 @@
+/* styles.css */
+
+/* Define a fonte padrão e a margem/padding */
+body, html {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f900;
+    background-position: center;
+    background-size: cover;
+    color: #5d829d;
+}
+
+/* Estilo para o corpo com imagem de fundo */
+body {
+    width: 90%;
+    height: 110vh; /* altura do viewport */
+    background-image: url('../img/clinica\ escola.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 0px;
+}
+
+/* Estilo para o cabeçalho */
+h1 {
+    text-align: center;
+    color: #5d829d;
+    margin-bottom: 40px; /* Aumenta a margem inferior */
+}
+
+/* Estilo para o formulário */
+form {
+    width: 100%;
+    max-width: 1000px;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 0px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-columns: repeat(4, 3fr);
+    column-gap: 50px; /* Espaço entre as colunas */
+    row-gap: 5px;
+    margin-bottom: -20%;
+    margin-left: auto; /* Empurra o formulário para a direita */
+}
+
+/* Estilo para os grupos de formulário */
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Estilo para os rótulos e campos de entrada */
+form label {
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+form input[type="text"],
+form input[type="number"],
+form select,
+form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #32486d;
+    border-radius: 4px;
+}
+
+/* Estilo para os campos de radio */
+form input[type="radio"] {
+    margin-left: 10px;
+    margin-right: 5px;
+}
+
+/* Estilo para os botões de envio */
+form input[type="submit"] {
+    background-color: #3498db;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    grid-column: span 4; /* Ocupa 100% da largura */
+}
+
+form input[type="submit"]:hover {
+    background-color: #2980b9;
+}
+
+/* Estilo para telas menores */
+@media (max-width: 1200px) {
+    form {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    form {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    form {
+        grid-template-columns: 1fr;
+    }
+}
